@@ -18,8 +18,7 @@ CREATE TABLE Voiture (
     type_voiture VARCHAR(50),
     couleur VARCHAR(50),
     nb_places_passager INTEGER NOT NULL,
-    etat VARCHAR(50),
-    FOREIGN KEY (id_proprietaire) REFERENCES Etudiant(id_etudiant)
+    etat VARCHAR(50)
 );
 
 
@@ -27,8 +26,7 @@ CREATE TABLE Voyage (
     id_voyage SERIAL PRIMARY KEY,
     id_voiture INTEGER NOT NULL,
     date_depart DATE NOT NULL,
-    heure_depart TIME NOT NULL,
-    FOREIGN KEY (id_voiture) REFERENCES Voiture(id_voiture)
+    heure_depart TIME NOT NULL
 );
 
 CREATE TABLE Arret (
@@ -48,7 +46,7 @@ CREATE TABLE Inscription (
 CREATE TABLE Itineraire (
     id_voyage INTEGER NOT NULL,
     id_arret INTEGER NOT NULL,
-    CONSTRAINT pk_Itineraire PRIMARY KEY (id_voyage, id_arret),
+    CONSTRAINT pk_Itineraire PRIMARY KEY (id_voyage, id_arret)
 );
 
 CREATE TABLE Evaluation (
@@ -79,3 +77,4 @@ ALTER TABLE Evaluation
 ALTER TABLE Itineraire
     ADD CONSTRAINT fk1_Itineraire FOREIGN KEY (id_voyage) REFERENCES Voyage(id_voyage),
     ADD CONSTRAINT fk2_Itineraire FOREIGN KEY (id_arret) REFERENCES Arret(id_arret);
+    
