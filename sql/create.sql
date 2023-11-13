@@ -18,14 +18,17 @@ CREATE TABLE Voiture (
     type_voiture VARCHAR(50),
     couleur VARCHAR(50),
     nb_places_passager INTEGER NOT NULL,
-    etat VARCHAR(50)
+    etat VARCHAR(50),
+    FOREIGN KEY (id_proprietaire) REFERENCES Etudiant(id_etudiant)
 );
+
 
 CREATE TABLE Voyage (
     id_voyage SERIAL PRIMARY KEY,
     id_voiture INTEGER NOT NULL,
     date_depart DATE NOT NULL,
-    heure_depart TIME NOT NULL
+    heure_depart TIME NOT NULL,
+    FOREIGN KEY (id_voiture) REFERENCES Voiture(id_voiture)
 );
 
 CREATE TABLE Arret (
@@ -36,8 +39,8 @@ CREATE TABLE Arret (
 );
 
 CREATE TABLE Inscription (
-     id_etudiant INTEGER NOT NULL,
-     id_arret INTEGER NOT NULL,
+    id_etudiant INTEGER NOT NULL,
+    id_arret INTEGER NOT NULL,
     PRIMARY KEY (id_etudiant, id_arret),
     est_valide BOOLEAN DEFAULT TRUE
 );
@@ -56,6 +59,7 @@ CREATE TABLE Evaluation (
     note INTEGER NOT NULL,
     commentaire VARCHAR(500)
 );
+
 
 ALTER TABLE Voiture
     ADD CONSTRAINT fk_Voiture FOREIGN KEY (id_proprietaire) REFERENCES Etudiant(id_etudiant);
