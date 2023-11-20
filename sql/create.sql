@@ -24,6 +24,7 @@ CREATE TABLE Voiture (
 CREATE TABLE Voyage (
     id_voyage SERIAL PRIMARY KEY,
     id_voiture INTEGER NOT NULL,
+    distance INTEGER NOT NULL,
     date_depart DATE NOT NULL,
     heure_depart TIME NOT NULL
 );

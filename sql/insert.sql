@@ -24,12 +24,12 @@ INSERT INTO Voiture (id_proprietaire, type_voiture, couleur, nb_places_passager,
     (9, 'Electric', 'Blue', 4, 'Excellent');
 
 -- Insertion des voyages
-INSERT INTO Voyage (id_voiture, date_depart, heure_depart) VALUES
-    (1, '2023-12-01', '08:00:00'),
-    (2, '2024-02-07', '10:30:00'),
-    (3, '2024-04-01', '12:45:00'),
-    (4, '2023-11-28', '09:15:00'),
-    (5, '2024-01-02', '11:30:00');
+INSERT INTO Voyage (id_voiture, distance, date_depart, heure_depart) VALUES
+    (1, 200, '2023-12-01', '08:00:00'),
+    (2, 120, '2024-04-01', '10:30:00'),
+    (3, 12, '2024-04-01', '12:45:00'),
+    (4, 125, '2023-11-28', '09:15:00'),
+    (5, 400, '2024-01-02', '11:30:00');
 
 -- Insertion des arrêts
 INSERT INTO Arret (id_voyage, ville, duree_estimee, prix_par_passager) VALUES
@@ -70,5 +70,4 @@ SELECT * FROM Voiture;
 SELECT * FROM Voyage;
 SELECT * FROM Arret;
 SELECT * FROM Inscription;
-SELECT * FROM Itineraire;
 SELECT * FROM Evaluation;
