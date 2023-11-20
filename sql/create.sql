@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS Evaluation;
-DROP TABLE IF EXISTS Itineraire;
 DROP TABLE IF EXISTS Inscription;
 DROP TABLE IF EXISTS Arret;
 DROP TABLE IF EXISTS Voyage;
@@ -31,8 +30,9 @@ CREATE TABLE Voyage (
 
 CREATE TABLE Arret (
     id_arret SERIAL PRIMARY KEY,
+    id_voyage INTEGER NOT NULL,
     ville VARCHAR(50) NOT NULL,
-    heure_passage TIME NOT NULL,
+    duree_estimee TIME NOT NULL,
     prix_par_passager NUMERIC(10,2) NOT NULL
 );
 
@@ -41,12 +41,6 @@ CREATE TABLE Inscription (
     id_arret INTEGER NOT NULL,
     PRIMARY KEY (id_etudiant, id_arret),
     est_valide BOOLEAN DEFAULT TRUE
-);
-
-CREATE TABLE Itineraire (
-    id_voyage INTEGER NOT NULL,
-    id_arret INTEGER NOT NULL,
-    CONSTRAINT pk_Itineraire PRIMARY KEY (id_voyage, id_arret)
 );
 
 CREATE TABLE Evaluation (
@@ -65,6 +59,9 @@ ALTER TABLE Voiture
 ALTER TABLE Voyage
     ADD CONSTRAINT fk_Voyage FOREIGN KEY (id_voiture) REFERENCES Voiture(id_voiture);
 
+ALTER TABLE Arret
+    ADD CONSTRAINT fk_Voiture FOREIGN KEY (id_voyage) REFERENCES Voyage(id_voyage);
+
 ALTER TABLE Inscription
     ADD CONSTRAINT fk1_Inscription FOREIGN KEY (id_etudiant) REFERENCES Etudiant(id_etudiant),
     ADD CONSTRAINT fk2_Inscription FOREIGN KEY (id_arret) REFERENCES Arret(id_arret);
@@ -73,8 +70,3 @@ ALTER TABLE Evaluation
      ADD CONSTRAINT fk1_Evaluation FOREIGN KEY (id_emetteur) REFERENCES Etudiant(id_etudiant),
      ADD CONSTRAINT fk2_Evaluation FOREIGN KEY (id_receveur) REFERENCES Etudiant(id_etudiant),
      ADD CONSTRAINT fk3_Evaluation FOREIGN KEY (id_voyage) REFERENCES Voyage(id_voyage);
-
-ALTER TABLE Itineraire
-    ADD CONSTRAINT fk1_Itineraire FOREIGN KEY (id_voyage) REFERENCES Voyage(id_voyage),
-    ADD CONSTRAINT fk2_Itineraire FOREIGN KEY (id_arret) REFERENCES Arret(id_arret);
-    

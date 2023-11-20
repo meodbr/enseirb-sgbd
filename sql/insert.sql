@@ -32,15 +32,15 @@ INSERT INTO Voyage (id_voiture, date_depart, heure_depart) VALUES
     (5, '2024-01-02', '11:30:00');
 
 -- Insertion des arrêts
-INSERT INTO Arret (ville, heure_passage, prix_par_passager) VALUES
-    ('Talence', '08:30:00', 3.00),
-    ('Pessac', '11:00:00', 1.00),
-    ('Bègles', '13:00:00', 7.00),
-    ('Marseille', '10:00:00', 32.00),
-    ('Grenoble', '12:30:00', 28.00);
-    ('Talence', '11:30:00', 4.00),
-    ('Pessac', '15:00:00', 2.00),
-    ('Bègles', '01:00:00', 5.00),
+INSERT INTO Arret (id_voyage, ville, duree_estimee, prix_par_passager) VALUES
+    (1, 'Talence', '08:30:00', 3.00),
+    (1, 'Pessac', '11:00:00', 1.00),
+    (2, 'Bègles', '13:00:00', 7.00),
+    (3, 'Marseille', '10:00:00', 32.00),
+    (1, 'Grenoble', '12:30:00', 28.00),
+    (3, 'Talence', '11:30:00', 4.00),
+    (4, 'Pessac', '15:00:00', 2.00),
+    (5, 'Bègles', '01:00:00', 5.00);
 
 -- Insertion des inscriptions
 INSERT INTO Inscription (id_etudiant, id_arret, est_valide) VALUES
@@ -54,17 +54,6 @@ INSERT INTO Inscription (id_etudiant, id_arret, est_valide) VALUES
     (8, 3, FALSE),
     (9, 4, TRUE);
 
--- Insertion des itinéraires
-INSERT INTO Itineraire (id_voyage, id_arret) VALUES
-    (1, 1),
-    (1, 2),
-    (1, 5),
-    (2, 3),
-    (3, 4);
-    (3, 6);
-    (4, 7);
-    (5, 8);
-
 -- Insertion des évaluations
 INSERT INTO Evaluation (id_emetteur, id_receveur, id_voyage, note, commentaire) VALUES
     (1, 2, 1, 4, 'Great trip!'),
@@ -72,12 +61,3 @@ INSERT INTO Evaluation (id_emetteur, id_receveur, id_voyage, note, commentaire) 
     (3, 1, 3, 3, 'Could be better'),
     (4, 5, 4, 5, 'Perfect journey'),
     (5, 4, 5, 4, 'Good experience');
-
--- Vérifier les données insérées
-SELECT * FROM Etudiant;
-SELECT * FROM Voiture;
-SELECT * FROM Voyage;
-SELECT * FROM Arret;
-SELECT * FROM Inscription;
-SELECT * FROM Itineraire;
-SELECT * FROM Evaluation;
