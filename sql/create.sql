@@ -1,10 +1,10 @@
-DROP TABLE Evaluation;
-DROP TABLE Itineraire;
-DROP TABLE Inscription;
-DROP TABLE Arret;
-DROP TABLE Voyage;
-DROP TABLE Voiture;
-DROP TABLE Etudiant;
+DROP TABLE IF EXISTS Evaluation;
+DROP TABLE IF EXISTS Itineraire;
+DROP TABLE IF EXISTS Inscription;
+DROP TABLE IF EXISTS Arret;
+DROP TABLE IF EXISTS Voyage;
+DROP TABLE IF EXISTS Voiture;
+DROP TABLE IF EXISTS Etudiant;
 
 CREATE TABLE Etudiant (
     id_etudiant SERIAL PRIMARY KEY,
