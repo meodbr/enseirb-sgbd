@@ -37,10 +37,10 @@ INSERT INTO Arret (ville, heure_passage, prix_par_passager) VALUES
     ('Pessac', '11:00:00', 1.00),
     ('Bègles', '13:00:00', 7.00),
     ('Marseille', '10:00:00', 32.00),
-    ('Grenoble', '12:30:00', 28.00);
+    ('Grenoble', '12:30:00', 28.00),
     ('Talence', '11:30:00', 4.00),
     ('Pessac', '15:00:00', 2.00),
-    ('Bègles', '01:00:00', 5.00),
+    ('Bègles', '01:00:00', 5.00);
 
 -- Insertion des inscriptions
 INSERT INTO Inscription (id_etudiant, id_arret, est_valide) VALUES
@@ -60,9 +60,9 @@ INSERT INTO Itineraire (id_voyage, id_arret) VALUES
     (1, 2),
     (1, 5),
     (2, 3),
-    (3, 4);
-    (3, 6);
-    (4, 7);
+    (3, 4),
+    (3, 6),
+    (4, 7),
     (5, 8);
 
 -- Insertion des évaluations
@@ -71,7 +71,9 @@ INSERT INTO Evaluation (id_emetteur, id_receveur, id_voyage, note, commentaire) 
     (2, 3, 2, 5, 'Awesome service!'),
     (3, 1, 3, 3, 'Could be better'),
     (4, 5, 4, 5, 'Perfect journey'),
-    (5, 4, 5, 4, 'Good experience');
+    (5, 4, 5, 4, 'Good experience'),
+    (2, 1, 1, 4, 'Good'),
+    (5, 1, 1, 1, 'Bad');
 
 -- Vérifier les données insérées
 SELECT * FROM Etudiant;
