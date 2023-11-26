@@ -17,6 +17,13 @@ FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET
 WHERE Arret.ville = $1;
 
 -- les trajets proposés dans un intervalle de jours donné, 
-Select * FROM Voyage 
-WHERE date_depart >= TO_DATE($1, 'DD-MM-YYYY') 
-AND date_depart <= TO_DATE($2, 'DD-MM-YYYY');
+SELECT * FROM Voyage 
+WHERE date_depart >= $1
+AND date_depart <= $2;
+
+-- trajets pouvant desservir une ville donnée dans un intervalle de temps
+SELECT trajets.*
+FROM trajets NATURAL JOIN Arret
+WHERE ville = $1
+AND date_depart >= $2
+AND date_depart <= $3;
