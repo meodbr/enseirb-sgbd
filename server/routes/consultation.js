@@ -5,16 +5,16 @@ module.exports = app => {
     router.use(require("express").json());
 
     // étudiant par nom ou prénom
-    router.get("/et/:pattern", consultation.findByName);
+    router.get("/recherche/:pattern", consultation.findByName);
 
     // liste des véhicules disponibles pour un jour donné pour une ville donnée
-    router.get("/av/:city", consultation.availableVehicules);
+    router.get("/vehicules-disponibles/:city", consultation.availableVehicules);
 
     // les trajets proposés dans un intervalle de jours donné, 
-    router.get("/voy/:beginDate/:endDate", consultation.VoyageBetweenDates);
+    router.get("/voyages/:beginDate/:endDate", consultation.VoyageBetweenDates);
 
     // trajets pouvant desservir une ville donnée dans un intervalle de temps
-    router.get("/voyc/:city/:beginDate/:endDate", consultation.VoyageToCityBetweenDates);
+    router.get("/voyages-vers-ville/:city/:beginDate/:endDate", consultation.VoyageToCityBetweenDates);
 
     app.use('/api/consultation', router);
 };
