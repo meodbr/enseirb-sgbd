@@ -11,6 +11,8 @@ SELECT * FROM etudiant WHERE id_etudiant = $1;
 SELECT * FROM etudiant 
 WHERE nom LIKE '%' || $1 || '%' OR prenom LIKE '%' || $1 || '%';
 
+-- CONSULTATIONS
+
 -- liste des véhicules disponibles pour un jour donné pour une ville donnée
 SELECT Voiture.* 
 FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET 
@@ -22,8 +24,8 @@ WHERE date_depart >= $1
 AND date_depart <= $2;
 
 -- trajets pouvant desservir une ville donnée dans un intervalle de temps
-SELECT trajets.*
-FROM trajets NATURAL JOIN Arret
+SELECT Voyage.*
+FROM Voyage NATURAL JOIN Arret
 WHERE ville = $1
 AND date_depart >= $2
 AND date_depart <= $3;

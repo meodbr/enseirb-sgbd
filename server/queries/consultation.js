@@ -1,29 +1,22 @@
 const db = require("../db");
 
-function queryCreate(etudiant){
-    return (`INSERT INTO etudiant (nom, prenom) VALUES ('${etudiant.nom}', '${etudiant.prenom}')`);
+// liste des véhicules disponibles pour un jour donné pour une ville donnée
+function queryAvailableVehicles() {
+    return('SELECT Voiture.* FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET WHERE Arret.ville = $1');
 }
 
-function querySelectAll() {
-    return("SELECT * from etudiant");
+// les trajets proposés dans un intervalle de jours donné, 
+function queryVoyageBetweenDates() {
+    return('SELECT * FROM Voyage WHERE date_depart >= $1 AND date_depart <= $2');
 }
 
-function querySelectId(id){
-    return(`SELECT * from etudiant where id_etudiant=${id}`);
-}
-
-function queryUpdateById(id, etudiant){
-    return(`UPDATE etudiant SET nom = '${etudiant.nom}', prenom = '${etudiant.prenom}' WHERE id_etudiant=${id}`);
-}
-
-function queryDeleteById(id){
-    return(`DELETE from etudiant where id_etudiant=${id}`);
+// trajets pouvant desservir une ville donnée dans un intervalle de temps
+function queryVoyageToCityBetweenDates() {
+    return('SELECT Voyage.* FROM Voyage NATURAL JOIN Arret WHERE ville = $1 AND date_depart >= $2 AND date_depart <= $3');
 }
 
 module.exports = {
-    queryCreate,
-    querySelectAll,
-    querySelectId,
-    queryUpdateById,
-    queryDeleteById
+    queryAvailableVehicles,
+    queryVoyageToCityBetweenDates,
+    queryVoyageBetweenDates
 };

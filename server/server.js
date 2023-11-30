@@ -8,7 +8,7 @@ require("./routes/evaluation")(app);
 require("./routes/itineraire")(app);
 require("./routes/inscription")(app);
 require("./routes/voyage")(app);
-require("./routes/consultations")(app);
+require("./routes/consultation")(app);
 
 app.use(cors());
 
