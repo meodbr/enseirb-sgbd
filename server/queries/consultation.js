@@ -1,5 +1,10 @@
 const db = require("../db");
 
+// étudiant par nom ou prénom
+function queryFindByName() {
+    return('SELECT * FROM etudiant WHERE LOWER(nom) LIKE \'%\' || LOWER($1) || \'%\' OR LOWER(prenom) LIKE \'%\' || LOWER($1) || \'%\'');
+}
+
 // liste des véhicules disponibles pour un jour donné pour une ville donnée
 function queryAvailableVehicles() {
     return('SELECT Voiture.* FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET WHERE Arret.ville = $1');
@@ -18,5 +23,6 @@ function queryVoyageToCityBetweenDates() {
 module.exports = {
     queryAvailableVehicles,
     queryVoyageToCityBetweenDates,
+    queryFindByName,
     queryVoyageBetweenDates
 };

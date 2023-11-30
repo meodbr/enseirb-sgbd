@@ -4,6 +4,9 @@ module.exports = app => {
     var router = require("express").Router();
     router.use(require("express").json());
 
+    // étudiant par nom ou prénom
+    router.get("/et/:pattern", consultation.findByName);
+
     // liste des véhicules disponibles pour un jour donné pour une ville donnée
     router.get("/av/:city", consultation.availableVehicules);
 

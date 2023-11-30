@@ -7,11 +7,11 @@ SELECT * FROM etudiant;
 -- étudiant par ID
 SELECT * FROM etudiant WHERE id_etudiant = $1;
 
+-- CONSULTATIONS
+
 -- étudiant par nom ou prénom
 SELECT * FROM etudiant 
-WHERE nom LIKE '%' || $1 || '%' OR prenom LIKE '%' || $1 || '%';
-
--- CONSULTATIONS
+WHERE LOWER(nom) LIKE '%' || LOWER($1) || '%' OR LOWER(prenom) LIKE '%' || LOWER($1) || '%';
 
 -- liste des véhicules disponibles pour un jour donné pour une ville donnée
 SELECT Voiture.* 

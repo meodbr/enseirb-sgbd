@@ -1,5 +1,19 @@
 const db = require('../db');
-const { queryAvailableVehicles, queryVoyageBetweenDates, queryVoyageToCityBetweenDates } = require('../queries/consultation');
+const { queryFindByName, queryAvailableVehicles, queryVoyageBetweenDates, queryVoyageToCityBetweenDates } = require('../queries/consultation');
+
+// étudiant par nom ou prénom
+exports.findByName = (req, res) => {
+    const pattern = req.params.pattern;
+    db.query(queryFindByName(), [pattern], (err, result, fields) => {
+        if (!err)
+            res.send(result.rows);
+        else
+            res.status(500).send({
+                message:
+                    err.message || `ERREUR: ${requeteFindByName}.`
+            });
+    })
+};
 
 // liste des véhicules disponibles pour un jour donné pour une ville donnée
 exports.availableVehicules = (req, res) => {
@@ -24,7 +38,7 @@ exports.VoyageBetweenDates = (req, res) => {
         else
             res.status(500).send({
                 message:
-                    err.message || `ERREUR: ${requeteAvailableVehicules}.`
+                    err.message || `ERREUR: ${requeteVoyageBetweenDates}.`
             });
     })
 };
@@ -39,7 +53,7 @@ exports.VoyageToCityBetweenDates = (req, res) => {
         else
             res.status(500).send({
                 message:
-                    err.message || `ERREUR: ${requeteAvailableVehicules}.`
+                    err.message || `ERREUR: ${requeteVoyageToCityBetweenDates}.`
             });
     })
 };
