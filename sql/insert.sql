@@ -24,12 +24,12 @@ INSERT INTO Voiture (id_proprietaire, type_voiture, couleur, nb_places_passager,
     (9, 'Electric', 'Blue', 4, 'Excellent');
 
 -- Insertion des voyages
-INSERT INTO Voyage (id_voiture, date_depart, heure_depart) VALUES
-    (1, '2023-12-01', '08:00:00'),
-    (2, '2024-02-07', '10:30:00'),
-    (3, '2024-04-01', '12:45:00'),
-    (4, '2023-11-28', '09:15:00'),
-    (5, '2024-01-02', '11:30:00');
+INSERT INTO Voyage (id_voiture, distance, date_depart, heure_depart) VALUES
+    (1, 200, '2023-12-01', '08:00:00'),
+    (2, 120, '2024-04-01', '10:30:00'),
+    (3, 12, '2024-04-01', '12:45:00'),
+    (4, 125, '2023-11-28', '09:15:00'),
+    (5, 400, '2024-01-02', '11:30:00');
 
 -- Insertion des arrêts
 INSERT INTO Arret (id_voyage, ville, duree_estimee, prix_par_passager) VALUES
@@ -60,4 +60,14 @@ INSERT INTO Evaluation (id_emetteur, id_receveur, id_voyage, note, commentaire) 
     (2, 3, 2, 5, 'Awesome service!'),
     (3, 1, 3, 3, 'Could be better'),
     (4, 5, 4, 5, 'Perfect journey'),
-    (5, 4, 5, 4, 'Good experience');
+    (5, 4, 5, 4, 'Good experience'),
+    (2, 1, 1, 4, 'Good'),
+    (5, 1, 1, 1, 'Bad');
+
+-- Vérifier les données insérées
+SELECT * FROM Etudiant;
+SELECT * FROM Voiture;
+SELECT * FROM Voyage;
+SELECT * FROM Arret;
+SELECT * FROM Inscription;
+SELECT * FROM Evaluation;
