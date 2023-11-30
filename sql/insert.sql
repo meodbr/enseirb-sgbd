@@ -46,28 +46,54 @@ INSERT INTO Arret (id_voyage, ville, duree_estimee, prix_par_passager) VALUES
 INSERT INTO Inscription (id_etudiant, id_arret, est_valide) VALUES
     (1, 1, FALSE),
     (2, 2, TRUE),
-    (3, 3, FALSE),
+    (3, 3, TRUE),
     (4, 4, TRUE),
     (5, 5, TRUE),
-    (6, 1, FALSE),
-    (7, 2, FALSE),
+    (6, 1, TRUE),
+    (7, 2, TRUE),
     (8, 3, FALSE),
     (9, 4, TRUE);
 
 -- Insertion des évaluations
 INSERT INTO Evaluation (id_emetteur, id_receveur, id_voyage, note, commentaire) VALUES
-    (1, 2, 1, 4, 'Great trip!'),
-    (2, 3, 2, 5, 'Awesome service!'),
-    (3, 1, 3, 3, 'Could be better'),
-    (4, 5, 4, 5, 'Perfect journey'),
-    (5, 4, 5, 4, 'Good experience'),
-    (2, 1, 1, 4, 'Good'),
-    (5, 1, 1, 1, 'Bad');
+    -- Voyage 1 evaluations
+    (1, 3, 1, 4, 'Enjoyed the trip'),
+    (2, 4, 1, 5, 'Excellent company'),
+    (3, 1, 1, 3, 'Average experience'),
+    (4, 6, 1, 5, 'Very comfortable journey'),
+    (5, 1, 1, 4, 'Nice conversations'),
+    (6, 8, 1, 3, 'Could be better'),
+    (7, 9, 1, 4, 'Good overall'),
+    -- Voyage 2 evaluations
+    (1, 2, 2, 5, 'Awesome trip!'),
+    (3, 1, 2, 4, 'Great time together'),
+    (5, 6, 2, 3, 'Okay experience'),
+    (7, 2, 2, 5, 'Perfect journey'),
+    (9, 2, 2, 4, 'Enjoyed it'),
+    -- Voyage 3 evaluations
+    (2, 3, 3, 3, 'Could be improved'),
+    (4, 5, 3, 4, 'Nice company'),
+    (6, 3, 3, 5, 'Fantastic journey'),
+    (8, 9, 3, 4, 'Very pleasant'),
+    (1, 3, 3, 5, 'Excellent service'),
+    -- Voyage 4 evaluations
+    (3, 4, 4, 4, 'Comfortable ride'),
+    (5, 6, 4, 3, 'Average trip'),
+    (7, 4, 4, 5, 'Perfect journey'),
+    (9, 4, 4, 4, 'Good experience'),
+    (2, 3, 4, 5, 'Enjoyed the journey'),
+    -- Voyage 5 evaluations
+    (4, 5, 5, 5, 'Outstanding trip'),
+    (6, 7, 5, 4, 'Nice conversations'),
+    (8, 5, 5, 3, 'Average experience'),
+    (1, 5, 5, 5, 'Excellent service'),
+    (3, 4, 5, 4, 'Great time together');
+    
 
 -- Vérifier les données insérées
-SELECT * FROM Etudiant;
-SELECT * FROM Voiture;
-SELECT * FROM Voyage;
-SELECT * FROM Arret;
-SELECT * FROM Inscription;
-SELECT * FROM Evaluation;
+-- SELECT * FROM Etudiant;
+-- SELECT * FROM Voiture;
+-- SELECT * FROM Voyage;
+-- SELECT * FROM Arret;
+-- SELECT * FROM Inscription;
+-- SELECT * FROM Evaluation;

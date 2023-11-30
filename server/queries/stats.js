@@ -10,7 +10,7 @@ function queryStatConducteur(){
 
 function queryStatVille() {
     return(`SELECT a.ville, count(v.id_voyage) as nombre_arret
-    FROM voyage v join itineraire i on i.id_voyage = v.id_voyage join arret a on a.id_arret = i.id_arret
+    FROM Voyage v NATURAL JOIN Arret a
     group by (a.ville)
     order by (nombre_arret) DESC`);
 }

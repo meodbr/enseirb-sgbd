@@ -40,7 +40,7 @@ préciser dans le commentaire si c'est un conducteur ou un passager pour 7)
 */
 /*--classement des meilleurs conducteurs (moyenne des notes)
 SELECT e.nom, e.prenom, AVG(ev.note) as avg
-FROM etudiant e JOIN evaluation ev ON e.id_etudiant=ev.id_receveur join voyage vo on vo.id_voyage = ev.id_voyage join voiture v on vo.id_voiture = v.id_voiture 
+FROM etudiant e JOIN evaluation ev ON e.id_etudiant=ev.id_receveur JOIN voyage vo ON vo.id_voyage = ev.id_voyage JOIN voiture v ON vo.id_voiture = v.id_voiture 
 where ev.id_receveur = v.id_proprietaire
 group by (e.id_etudiant)
 order by (avg) DESC;*/
