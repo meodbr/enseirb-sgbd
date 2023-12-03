@@ -14,10 +14,10 @@ module.exports = app => {
     router.get("/:idEmetteur", evaluations.findOne);
 
     // Met à jour une évaluation
-    router.put("/e=:idEmetteur/r=:idReceveur/v=:idVoyage", evaluations.update);
+    router.put("/:idEvaluation", evaluations.update);
 
     // Supprime une évaluation avec un id donné
-    router.delete("/e=:idEmetteur/r=:idReceveur/v=:idVoyage", evaluations.delete);
+    router.delete("/:idEvaluation", evaluations.delete);
 
     app.use('/api/evaluation', router);
 };

@@ -59,13 +59,18 @@ exports.findOne = (req, res) => {
 
 // Modifie l'évaluation par l'id
 exports.update = (req, res) => {
+    /*
     const evaluation = {
+        idEvaluation: req.params.idEvaluation,
         idEmetteur: req.params.idEmetteur,
         idReceveur: req.params.idReceveur,
         idVoyage: req.params.idVoyage,
         note: req.body.note,
         commentaire: req.body.commentaire,
     };
+    */
+
+    const idEvaluation = req.params.idEvaluation;
 
 
     db.query(querySelectId(evaluation.idEmetteur), (err, result, fields) => {
@@ -93,13 +98,11 @@ exports.update = (req, res) => {
 
 // Supprime l'évaluation avec l'id sélectionné
 exports.delete = (req, res) => {
-    const idEmetteur= req.params.idEmetteur;
-    const idReceveur= req.params.idReceveur;
-    const idVoyage= req.params.idVoyage;
+    const idEvaluation= req.params.idEvaluation;
     db.query(querySelectId(idEmetteur), (err, result, fields) => {
         if (!err)
             if(result.rows.length>0)
-                db.query(queryDeleteById(idEmetteur, idReceveur, idVoyage), (err, result, fields) => {
+                db.query(queryDeleteById(idEvaluation), (err, result, fields) => {
                     if (!err)
                         res.send({
                             message: "Supprimé"
@@ -110,7 +113,7 @@ exports.delete = (req, res) => {
             else
                 res.status(404).send({
                     message:
-                        `evaluation avec l'id: ${id} de l'emetteur non trouvable`
+                        `evaluation avec l'id: ${id} non trouvable`
                 });
         else
             res.status(500).send({
