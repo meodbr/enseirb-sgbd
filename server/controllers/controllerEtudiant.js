@@ -26,7 +26,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     db.query(querySelectAll(), (err, result, fields) => {
         if (!err)
-            res.send(result);
+            res.send(result.rows);
         else
             res.status(500).send({
                 message:

@@ -27,9 +27,9 @@ exports.create = (req, res) => {
 
 // Renvoie toutes les voitures
 exports.findAll = (req, res) => {
-    db.query(querySelectAll(), (err, rows, fields) => {
+    db.query(querySelectAll(), (err, result, fields) => {
         if (!err)
-            res.send(rows);
+            res.send(result.rows);
         else
             res.status(500).send({
                 message:

@@ -25,9 +25,9 @@ exports.create = (req, res) => {
 
 // Renvoie tout les voyages
 exports.findAll = (req, res) => {
-    db.query(querySelectAll(), (err, rows, fields) => {
+    db.query(querySelectAll(), (err, result, fields) => {
         if (!err)
-            res.send(rows);
+            res.send(result.rows);
         else
             res.status(500).send({
                 message:
