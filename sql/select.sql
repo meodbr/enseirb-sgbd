@@ -16,7 +16,7 @@ WHERE LOWER(nom) LIKE '%' || LOWER($1) || '%' OR LOWER(prenom) LIKE '%' || LOWER
 -- liste des véhicules disponibles pour un jour donné pour une ville donnée
 SELECT Voiture.* 
 FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET 
-WHERE Arret.ville = $1;
+WHERE Voyage.date_depart = $1 AND Arret.ville = $2;
 
 -- les trajets proposés dans un intervalle de jours donné, 
 SELECT * FROM Voyage 
