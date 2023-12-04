@@ -1,5 +1,5 @@
 const db = require('../db');
-const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById
+const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById, queryAvailableVehicles
 } = require("../queries/voitures");
 
 // Crée une voiture
@@ -27,9 +27,9 @@ exports.create = (req, res) => {
 
 // Renvoie toutes les voitures
 exports.findAll = (req, res) => {
-    db.query(querySelectAll(), (err, rows, fields) => {
+    db.query(querySelectAll(), (err, result, fields) => {
         if (!err)
-            res.send(rows);
+            res.send(result.rows);
         else
             res.status(500).send({
                 message:
@@ -118,4 +118,19 @@ exports.delete = (req, res) => {
             });
     })
 
+};
+
+// liste des véhicules disponibles pour un jour donné pour une ville donnée
+exports.availableVehicules = (req, res) => {
+    const city = req.params.city;
+    const day = req.params.day;
+    db.query(queryAvailableVehicles(), [day,city], (err, result, fields) => {
+        if (!err)
+            res.send(result.rows);
+        else
+            res.status(500).send({
+                message:
+                    err.message || `ERREUR: ${requeteAvailableVehicules}.`
+            });
+    })
 };

@@ -1,5 +1,5 @@
 const db = require('../db');
-const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById
+const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById, queryVoyageBetweenDates, queryVoyageToCityBetweenDates
 } = require("../queries/voyages");
 
 // Crée un voyage
@@ -25,9 +25,9 @@ exports.create = (req, res) => {
 
 // Renvoie tout les voyages
 exports.findAll = (req, res) => {
-    db.query(querySelectAll(), (err, rows, fields) => {
+    db.query(querySelectAll(), (err, result, fields) => {
         if (!err)
-            res.send(rows);
+            res.send(result.rows);
         else
             res.status(500).send({
                 message:
@@ -114,4 +114,33 @@ exports.delete = (req, res) => {
             });
     })
 
+};
+
+// les trajets proposés dans un intervalle de jours donné, 
+exports.VoyageBetweenDates = (req, res) => {
+    const beginDate = req.params.beginDate, endDate = req.params.endDate;
+    db.query(queryVoyageBetweenDates(), [beginDate, endDate], (err, result, fields) => {
+        if (!err)
+            res.send(result.rows);
+        else
+            res.status(500).send({
+                message:
+                    err.message || `ERREUR: ${requeteVoyageBetweenDates}.`
+            });
+    })
+};
+
+// trajets pouvant desservir une ville donnée dans un intervalle de temps
+exports.VoyageToCityBetweenDates = (req, res) => {
+    const city = req.params.city;
+    const beginDate = req.params.beginDate, endDate = req.params.endDate;
+    db.query(queryVoyageToCityBetweenDates(), [city, beginDate, endDate], (err, result, fields) => {
+        if (!err)
+            res.send(result.rows);
+        else
+            res.status(500).send({
+                message:
+                    err.message || `ERREUR: ${requeteVoyageToCityBetweenDates}.`
+            });
+    })
 };

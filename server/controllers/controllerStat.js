@@ -32,7 +32,7 @@ exports.statVille = (req, res) => {
 exports.statPassagers = (req, res) => {
     db.query(queryStatPassagers(), (err, result, fields) => {
         if (!err)
-            res.send(result.rows);
+            res.send(result.rows[0].moyenne_passager);
         else
             res.status(500).send({
                 message:
@@ -45,7 +45,7 @@ exports.statPassagers = (req, res) => {
 exports.statDistance = (req, res) => {
     db.query(queryStatDistance(), (err, result, fields) => {
         if (!err)
-            res.send(result.rows);
+            res.send(result.rows[0].avg);
         else
             res.status(500).send({
                 message:

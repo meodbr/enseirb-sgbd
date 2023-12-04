@@ -16,10 +16,10 @@ WHERE LOWER(nom) LIKE '%' || LOWER($1) || '%' OR LOWER(prenom) LIKE '%' || LOWER
 -- liste des véhicules disponibles pour un jour donné pour une ville donnée
 SELECT Voiture.* 
 FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET 
-WHERE Arret.ville = $1;
+WHERE Voyage.date_depart = $1 AND Arret.ville = $2;
 
 -- les trajets proposés dans un intervalle de jours donné, 
-SELECT * FROM Voyage 
+SELECT a.* FROM Voyage v NATURAL JOIN Arret a
 WHERE date_depart >= $1
 AND date_depart <= $2;
 
@@ -42,10 +42,10 @@ SELECT nb_passager/nb_voyage as moyenne_passager
             GROUP BY (v.id_voyage,i.est_valide)
             Having i.est_valide = 'TRUE'
             order by (v.id_voyage) ASC
-             )) 
+             ) as foo1) as foo2
     CROSS JOIN
         (SELECT count(v.id_voyage) as nb_voyage
-        from voyage v)
+        from voyage v) as foo3
     );
 
 --moyenne des distances parcourues en covoiturage par jour

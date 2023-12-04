@@ -18,10 +18,22 @@ function queryDeleteById(id){
     return(`DELETE from voyage where id_voyage=${id}`);
 }
 
+// les trajets proposés dans un intervalle de jours donné, 
+function queryVoyageBetweenDates() {
+    return('SELECT a.* FROM Voyage v NATURAL JOIN Arret a WHERE date_depart >= $1 AND date_depart <= $2')
+}
+
+// trajets pouvant desservir une ville donnée dans un intervalle de temps
+function queryVoyageToCityBetweenDates() {
+    return('SELECT Voyage.* FROM Voyage NATURAL JOIN Arret WHERE ville = $1 AND date_depart >= $2 AND date_depart <= $3');
+}
+
 module.exports = {
     queryCreate,
     querySelectAll,
     querySelectId,
     queryUpdateById,
-    queryDeleteById
+    queryDeleteById,
+    queryVoyageBetweenDates,
+    queryVoyageToCityBetweenDates
 };

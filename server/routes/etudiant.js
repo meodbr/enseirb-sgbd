@@ -19,5 +19,8 @@ module.exports = app => {
     // Supprime un étudiant avec un id donné
     router.delete("/:id", etudiants.delete);
 
+    // étudiant par nom ou prénom
+    router.get("/name/:pattern", etudiants.findByName);
+
     app.use('/api/etudiant', router);
 };

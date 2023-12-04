@@ -19,11 +19,17 @@ function queryDeleteById(id){
     return(`DELETE from voiture where id_voiture=${id}`);
 }
 
+// liste des véhicules disponibles pour un jour donné pour une ville donnée
+function queryAvailableVehicles() {
+    return('SELECT Voiture.* FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET WHERE Voyage.date_depart = $1 AND Arret.ville = $2');
+}
+
 module.exports = {
     queryCreate,
     querySelectAll,
     querySelectId,
     queryUpdateById,
-    queryDeleteById
+    queryDeleteById,
+    queryAvailableVehicles
 };
 

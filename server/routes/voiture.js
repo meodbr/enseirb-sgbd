@@ -19,5 +19,8 @@ module.exports = app => {
     // Delete a car with id
     router.delete("/:id", voitures.delete);
 
+    // liste des véhicules disponibles pour un jour donné pour une ville donnée
+    router.get("/:day/:city", voitures.availableVehicules);
+
     app.use('/api/voiture', router);
 };
