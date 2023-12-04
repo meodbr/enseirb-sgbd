@@ -42,10 +42,10 @@ SELECT nb_passager/nb_voyage as moyenne_passager
             GROUP BY (v.id_voyage,i.est_valide)
             Having i.est_valide = 'TRUE'
             order by (v.id_voyage) ASC
-             )) 
+             ) as foo1) as foo2
     CROSS JOIN
         (SELECT count(v.id_voyage) as nb_voyage
-        from voyage v)
+        from voyage v) as foo3
     );
 
 --moyenne des distances parcourues en covoiturage par jour
