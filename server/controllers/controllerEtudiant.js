@@ -1,5 +1,5 @@
 const db = require('../db');
-const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById
+const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById, queryFindByName
 } = require("../queries/etudiants");
 
 // Crée un étudiant
@@ -114,4 +114,18 @@ exports.delete = (req, res) => {
             });
     })
 
+};
+
+// étudiant par nom ou prénom
+exports.findByName = (req, res) => {
+    const pattern = req.params.pattern;
+    db.query(queryFindByName(), [pattern], (err, result, fields) => {
+        if (!err)
+            res.send(result.rows);
+        else
+            res.status(500).send({
+                message:
+                    err.message || `ERREUR: ${requeteFindByName}.`
+            });
+    })
 };

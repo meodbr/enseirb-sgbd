@@ -19,5 +19,11 @@ module.exports = app => {
     // Supprime un voyage avec un id donné
     router.delete("/:id", voyages.delete);
 
+    // les trajets proposés dans un intervalle de jours donné, 
+    router.get("/:beginDate/:endDate", voyages.VoyageBetweenDates);
+
+    // trajets pouvant desservir une ville donnée dans un intervalle de temps
+    router.get("/:city/:beginDate/:endDate", voyages.VoyageToCityBetweenDates);
+
     app.use('/api/voyage', router);
 };
