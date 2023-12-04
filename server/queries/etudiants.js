@@ -20,10 +20,16 @@ function queryDeleteById(id){
     return(`DELETE from etudiant where id_etudiant=${id}`);
 }
 
+// étudiant par nom ou prénom
+function queryFindByName() {
+    return('SELECT * FROM etudiant WHERE LOWER(nom) LIKE \'%\' || LOWER($1) || \'%\' OR LOWER(prenom) LIKE \'%\' || LOWER($1) || \'%\'');
+}
+
 module.exports = {
     queryCreate,
     querySelectAll,
     querySelectId,
     queryUpdateById,
-    queryDeleteById
+    queryDeleteById,
+    queryFindByName
 };
