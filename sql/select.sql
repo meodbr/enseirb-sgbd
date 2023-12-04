@@ -19,7 +19,7 @@ FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET
 WHERE Voyage.date_depart = $1 AND Arret.ville = $2;
 
 -- les trajets proposés dans un intervalle de jours donné, 
-SELECT * FROM Voyage 
+SELECT a.* FROM Voyage v NATURAL JOIN Arret a
 WHERE date_depart >= $1
 AND date_depart <= $2;
 
