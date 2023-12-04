@@ -73,7 +73,6 @@ ALTER TABLE Evaluation
      ADD CONSTRAINT fk2_Evaluation FOREIGN KEY (id_receveur) REFERENCES Etudiant(id_etudiant),
      ADD CONSTRAINT fk3_Evaluation FOREIGN KEY (id_voyage) REFERENCES Voyage(id_voyage);
 
-
 -- deletion handling
 
 CREATE OR REPLACE FUNCTION update_voyage_on_voiture_delete()
@@ -113,6 +112,44 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+/* CREATE OR REPLACE FUNCTION check_id_receveur_equals_voyageur()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF (NEW.id_receveur != (SELECT distinct v.id_proprietaire from evaluation e natural join voyage natural join voiture v where NEW.id_voyage = voyage.id_voyage))  AND 
+    (NEW.id_receveur NOT IN (SELECT distinct i.id_etudiant from inscription i natural join arret a natural join evaluation e natural join voyage v where i.est_valide = True and NEW.id_voyage = v.id_voyage))   THEN
+        RAISE EXCEPTION 'Le receveur etait pas dans le voyage';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE OR REPLACE FUNCTION check_id_emetteur_equals_voyageur()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF (NEW.id_emetteur != (SELECT distinct v.id_proprietaire from evaluation e natural join voyage natural join voiture v where NEW.id_voyage = voyage.id_voyage))  AND 
+    (NEW.id_emetteur NOT IN (SELECT distinct i.id_etudiant from inscription i natural join arret a natural join evaluation e natural join voyage v where i.est_valide = True and NEW.id_voyage = v.id_voyage))   THEN
+        RAISE EXCEPTION 'Lemetteur etait pas dans le voyage';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+ */
+
+/* CREATE OR REPLACE FUNCTION check_place_disponible()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF (NEW.id_emetteur != (SELECT distinct v.id_proprietaire from evaluation e natural join voyage natural join voiture v where NEW.id_voyage = voyage.id_voyage))  AND 
+    (NEW.id_emetteur NOT IN (SELECT distinct i.id_etudiant from inscription i natural join arret a natural join evaluation e natural join voyage v where i.est_valide = True and NEW.id_voyage = v.id_voyage))   THEN
+        RAISE EXCEPTION 'Le voyage est plein';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql; */
+
+
+
 CREATE TRIGGER update_voyage_trigger
 BEFORE DELETE ON Voiture
 FOR EACH ROW
@@ -127,3 +164,13 @@ CREATE TRIGGER update_evaluations_on_voyage_delete_trigger
 BEFORE DELETE ON Voyage
 FOR EACH ROW
 EXECUTE FUNCTION update_evaluations_on_voyage_delete();
+
+/* CREATE TRIGGER trig_check_id_receveur_equals_voyageur
+BEFORE INSERT OR UPDATE ON evaluation
+FOR EACH ROW
+EXECUTE FUNCTION check_id_receveur_equals_voyageur();
+
+CREATE TRIGGER trig_check_id_emetteur_equals_voyageur
+BEFORE INSERT OR UPDATE ON evaluation
+FOR EACH ROW
+EXECUTE FUNCTION check_id_emetteur_equals_voyageur(); */
