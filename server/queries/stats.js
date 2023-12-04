@@ -19,7 +19,7 @@ function queryStatDistance(){
     return(`SELECT avg(dist) FROM (
     SELECT v.date_depart, avg(v.distance) as dist
     from voyage v
-    group by (v.date_depart))`);
+    group by (v.date_depart)) as avgdist`);
 }
 
 function queryStatPassagers(){
