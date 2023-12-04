@@ -62,6 +62,6 @@ order by (avg) DESC;
 
 --classement des villes selon le nombre de trajets qui les dessert
 SELECT a.ville, count(v.id_voyage) as nombre_arret
-FROM voyage v join itineraire i on i.id_voyage = v.id_voyage join arret a on a.id_arret = i.id_arret
+FROM voyage v join  arret a on a.id_voyage = v.id_voyage
 group by (a.ville)
 order by (nombre_arret) DESC;
