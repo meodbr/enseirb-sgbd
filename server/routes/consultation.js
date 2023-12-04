@@ -8,7 +8,7 @@ module.exports = app => {
     router.get("/recherche/:pattern", consultation.findByName);
 
     // liste des véhicules disponibles pour un jour donné pour une ville donnée
-    router.get("/vehicules-disponibles/:city", consultation.availableVehicules);
+    router.get("/vehicules-disponibles/:day/:city", consultation.availableVehicules);
 
     // les trajets proposés dans un intervalle de jours donné, 
     router.get("/voyages/:beginDate/:endDate", consultation.VoyageBetweenDates);

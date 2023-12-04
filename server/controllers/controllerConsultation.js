@@ -18,7 +18,8 @@ exports.findByName = (req, res) => {
 // liste des véhicules disponibles pour un jour donné pour une ville donnée
 exports.availableVehicules = (req, res) => {
     const city = req.params.city;
-    db.query(queryAvailableVehicles(), [city], (err, result, fields) => {
+    const day = req.params.day;
+    db.query(queryAvailableVehicles(), [day,city], (err, result, fields) => {
         if (!err)
             res.send(result.rows);
         else
