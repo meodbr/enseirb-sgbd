@@ -62,10 +62,7 @@ INSERT INTO Voyage (id_voiture, distance, date_depart, heure_depart) VALUES
     (6, 130, '2024-01-01', '11:34:00'),
     (7, 15, '2024-04-02', '16:30:00'),
     (8, 120, '2023-09-02', '11:13:00'),
-    (8, 400, '2024-01-12', '15:30:00'),
-    (9, 234, '2024-12-02', '07:56:00'),
-    (10, 898, '2024-10-08', '11:54:00'),
-    (10, 40, '2025-01-01', '16:30:00');
+    (8, 400, '2024-01-12', '15:30:00');
 
 -- Insertion des arrêts
 INSERT INTO Arret (id_voyage, ville, duree_estimee, prix_par_passager) VALUES
@@ -87,66 +84,135 @@ INSERT INTO Arret (id_voyage, ville, duree_estimee, prix_par_passager) VALUES
 
 -- Insertion des inscriptions
 INSERT INTO Inscription (id_etudiant, id_arret, est_valide) VALUES
-    (1, 1, FALSE),
-    (2, 2, TRUE),
-    (3, 3, TRUE),
-    (4, 4, TRUE),
-    (5, 5, TRUE),
-    (6, 1, TRUE),
-    (7, 2, TRUE),
-    (8, 3, FALSE),
-    (9, 10, TRUE),
-    (14, 10, TRUE),
-    (11, 9, TRUE),
-    (17,11, TRUE),
-    (18, 11, TRUE),
-    (22, 11, TRUE),
-    (24, 9, TRUE);
+
+    -- voy 1 proprietaire 1 exclu,voiture 1 : 4 places max,  arrets = 1,2 et 5
+    (1, 1, FALSE), -- le conducteur ne peut pas s'inscrire à son propre voyage
+    (2,1, TRUE),
+    (5,1, TRUE),
+    (8,2, TRUE),
+    (9,2, FALSE), -- En considérant le conducteur, les 4 places sont déjà occupées    
+    (1, 2, FALSE),
+    (1, 5, FALSE),
+
+    -- voy 2 , prop 2 exclu, voiture 2 : 7 places max, arrets = 3
+    (2, 3, FALSE),
+    (1, 3, TRUE),
+    (4, 3, TRUE),
+    (6, 3, TRUE),
+    (7, 3, TRUE),
+    (10, 3, TRUE),
+    (11, 3, TRUE),
+    (12, 3, FALSE), -- Déjà 7 personnes inscrites
+
+
+    -- voy 3 , prop 3 exclu, voiture 3 : 5 places max, arrets = 4 et 6
+    (3, 4, FALSE),
+    (5, 4, TRUE),
+    (8, 4, TRUE),
+    (9, 6, TRUE),
+    (13, 6, TRUE),
+    (10, 6, FALSE), -- Déjà 5 personnes inscrites
+    (3, 6, FALSE),
+
+    -- voy 4, voiture 4 : 2 places max, prop 4 exclu, arrets = 7
+    (4, 7, FALSE),
+    (16, 7, TRUE),
+    (6, 7, FALSE), -- Déjà 2 personnes inscrites
+
+    -- voy 5, voiture 5 : 3 places max, prop 5 exclu, arrets = 8,15
+    (5, 8, FALSE),
+    (7, 8, TRUE),
+    (9, 15, TRUE),
+    (11, 15, FALSE), -- Déjà 3 personnes inscrites
+    (5, 15, FALSE),
+
+    -- voy 6 , voiture 1 : 4 places max, prop 1 exclu, arrets = 9
+    (1,9,FALSE),
+    (21,9,TRUE),
+    (22,9,TRUE),
+    (23,9,TRUE),
+    (26,9,FALSE), -- Déjà 4 personnes inscrites
+
+    -- voy 7, voiture 1 : 4 places max, prop 1 exclu, arrets = 10
+    (1,10,FALSE),
+    (11,10,TRUE),
+    (12,10,TRUE),
+    (13,10,TRUE),
+    (16,10,FALSE), -- Déjà 4 personnes inscrites
+
+    -- voy 8, voiture 6 : 6 places max, prop 6 exclu, arrets = 11
+    (6,11,FALSE),
+    (7,11,TRUE),
+    (8,11,TRUE),
+    (9,11,TRUE),
+    (10,11,TRUE),
+    (11,11,TRUE),
+    (12,11,FALSE), -- Déjà 6 personnes inscrites
+
+    -- voy 9, voiture 7 : 3 places max, prop 7 exclu, arrets = 12
+    (7,12,FALSE),
+    (27,12,TRUE),
+    (26,12,TRUE),
+    (11,12,FALSE), -- Déjà 3 personnes inscrites
+
+    -- voy 10, voiture 8 : 2 places max, prop 8 exclu, arrets = 13,14
+    (8,13,FALSE),
+    (1,14,TRUE),
+    (11,13,FALSE); -- Déjà 2 personnes inscrites
+
 
 -- Insertion des évaluations
 INSERT INTO Evaluation (id_emetteur, id_receveur, id_voyage, note, commentaire) VALUES
     -- Voyage 1 evaluations
-    (1, 3, 1, 4, 'Enjoyed the trip'),
-    (2, 4, 1, 5, 'Excellent company'),
-    (3, 1, 1, 3, 'Average experience'),
-    (4, 6, 1, 5, 'Very comfortable journey'),
-    (5, 1, 1, 4, 'Nice conversations'),
-    (6, 8, 1, 3, 'Could be better'),
-    (7, 9, 1, 4, 'Good overall'),
+    (2, 1, 1, 4, 'Enjoyed the trip'),
+    (5, 1, 1, 5, 'Excellent company'),
+    (8, 1, 1, 3, 'Average experience'),
+    (9, 1, 1, 5, 'Very comfortable journey'),
+
     -- Voyage 2 evaluations
     (1, 2, 2, 5, 'Awesome trip!'),
-    (3, 1, 2, 4, 'Great time together'),
-    (5, 6, 2, 3, 'Okay experience'),
+    (4, 2, 2, 4, 'Great time together'),
+    (6, 2, 2, 3, 'Okay experience'),
     (7, 2, 2, 5, 'Perfect journey'),
-    (9, 2, 2, 4, 'Enjoyed it'),
+    (10, 2, 2, 4, 'Enjoyed it'),
+    (11, 2, 2, 4, 'Nice conversations'),
+
     -- Voyage 3 evaluations
-    (2, 3, 3, 3, 'Could be improved'),
-    (4, 5, 3, 4, 'Nice company'),
-    (6, 3, 3, 5, 'Fantastic journey'),
-    (8, 9, 3, 4, 'Very pleasant'),
-    (1, 3, 3, 5, 'Excellent service'),
+    (5, 3, 3, 3, 'Could be improved'),
+    (8, 3, 3, 4, 'Nice company'),
+    (9, 3, 3, 5, 'Fantastic journey'),
+    (13, 3, 3, 4, 'Very pleasant'),
+
     -- Voyage 4 evaluations
-    (3, 4, 4, 4, 'Comfortable ride'),
-    (5, 6, 4, 3, 'Average trip'),
-    (7, 4, 4, 5, 'Perfect journey'),
-    (9, 4, 4, 4, 'Good experience'),
-    (2, 3, 4, 5, 'Enjoyed the journey'),
+    (16, 4, 4, 4, 'Comfortable ride'),
+
     -- Voyage 5 evaluations
-    (4, 5, 5, 5, 'Outstanding trip'),
-    (6, 7, 5, 4, 'Nice conversations'),
-    (8, 5, 5, 3, 'Average experience'),
-    (1, 5, 5, 5, 'Excellent service'),
-    (3, 4, 5, 4, 'Great time together'),
+    (7, 5, 5, 5, 'Outstanding trip'),
+    (9, 5, 5, 4, 'Nice conversations'),
+
     --Voyage 6 evaluations
-    (1, 11, 6, 5, 'Nice!'),
-    (1, 24, 6, 5, 'Awesome trip!'),
+    (21, 1, 6, 5, 'Nice!'),
+    (22, 1, 6, 5, 'Awesome trip!'),
+    (23, 1, 6, 3, 'Could be better'),
+
     --Voyage 7 evaluations
-    (9,1,9,4, 'Enjoyed the trip'),
-    (14,1,9,2,'Could be better'),
+    (11, 1, 7, 4, 'Enjoyed the trip'),
+    (12, 1, 7, 2,'Could be better'),
+    (13, 1, 7, 4, 'Good overall'),
+
     --Voyage 8 evaluations
-    (6, 17, 8, 5, 'Fantastic journey'),
-    (6, 18, 8, 4, 'Good experience'),
-    (6, 22, 8, 4, 'Nice company');
+    (7, 6, 8, 5, 'Fantastic journey'),
+    (8, 6, 8, 4, 'Good experience'),
+    (9, 6, 8, 4, 'Nice company'),
+    (10, 6, 8, 3, 'Average trip'),
+    (11, 6, 8, 5, 'Perfect journey'),
+
+    -- Voyage 9 evaluations
+    (27, 7, 9, 5, 'Enjoyed the trip'),
+    (26, 7, 9, 4, 'Great time together'),
+
+    -- Voyage 10 evaluations
+    (1, 8, 10, 5, 'Excellent service');
 
 -- Vérifier les données insérées
 -- SELECT * FROM Etudiant;
