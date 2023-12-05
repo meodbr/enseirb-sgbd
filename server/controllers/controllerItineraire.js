@@ -12,7 +12,7 @@ exports.create = (req, res) => {
 
     db.query(queryCreate(itineraire), (err, rows, fields) => {
         if (!err)
-            res.status(303).send({message : "itineraire créé"});
+            res.send({message:"itinéraire créé"});
         else
             res.status(500).send({
                 message:

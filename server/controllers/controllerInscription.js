@@ -13,7 +13,7 @@ exports.create = (req, res) => {
 
     db.query(queryCreate(inscription), (err, rows, fields) => {
         if (!err)
-            res.status(303).send({message : "inscription créé"});
+            res.send({message:"inscription créé"});
         else
             res.status(500).send({
                 message:
@@ -43,7 +43,7 @@ exports.findOne = (req, res) => {
             if(result.rows.length>0)
                 res.send(result);
             else
-                res.status(404).send({
+                res.status(200).send({
                     message:
                         `Inscription avec l'id: ${id} de l'étudiant non trouvable`
                 });
@@ -75,7 +75,7 @@ exports.update = (req, res) => {
                         console.log(err);
                 })
             else
-                res.status(404).send({
+                res.status(500).send({
                     message:
                         `Inscription avec l'id: ${idEtudiant} de l'étudiant non trouvable`
                 });

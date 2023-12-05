@@ -16,7 +16,7 @@ exports.create = (req, res) => {
 
     db.query(queryCreate(voiture), (err, rows, fields) => {
         if (!err)
-            res.status(303).send({message : "voiture créé"});
+            res.send({message : "voiture créé"});
         else
             res.status(500).send({
                 message:

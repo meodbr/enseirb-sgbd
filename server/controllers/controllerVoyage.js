@@ -14,7 +14,7 @@ exports.create = (req, res) => {
 
     db.query(queryCreate(voyage), (err, rows, fields) => {
         if (!err)
-            res.status(303).send({message : "voyage créé"});
+            res.send({message:"voyage créé"});
         else
             res.status(500).send({
                 message:

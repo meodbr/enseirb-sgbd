@@ -13,7 +13,7 @@ exports.create = (req, res) => {
 
     db.query(queryCreate(etudiant), (err, result, fields) => {
         if (!err)
-            res.status(303).send({message : "étudiant créé"});
+            res.send({message:"étudiant créé"});
         else
             res.status(500).send({
                 message:

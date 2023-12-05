@@ -13,7 +13,7 @@ exports.create = (req, res) => {
 
     db.query(queryCreate(arret), (err, rows, fields) => {
         if (!err)
-            res.status(303).send({message : "Arrêt créé"});
+            res.send({message:"arrêt créé"});
         else
             res.status(500).send({
                 message:

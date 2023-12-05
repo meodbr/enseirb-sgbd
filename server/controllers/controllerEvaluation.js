@@ -15,7 +15,7 @@ exports.create = (req, res) => {
 
     db.query(queryCreate(evaluation), (err, rows, fields) => {
         if (!err)
-            res.status(303).send({message : "évaluation créé"});
+            res.send({message:"évaluation créé"});
         else
             res.status(500).send({
                 message:
