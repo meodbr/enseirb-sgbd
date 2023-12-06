@@ -22,5 +22,9 @@ module.exports = app => {
     // étudiant par nom ou prénom
     router.get("/name/:pattern", etudiants.findByName);
 
+    router.get("/name/:pattern", etudiants.findByName);
+
+    router.get("/rate/:id", etudiants.FindRateById);
+
     app.use('/api/etudiant', router);
 };

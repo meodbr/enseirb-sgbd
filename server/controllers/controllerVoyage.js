@@ -1,5 +1,5 @@
 const db = require('../db');
-const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById, queryVoyageBetweenDates, queryVoyageToCityBetweenDates
+const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById, queryVoyageBetweenDates, queryVoyageToCityBetweenDates, queryArret
 } = require("../queries/voyages");
 
 // Crée un voyage
@@ -9,6 +9,7 @@ exports.create = (req, res) => {
         idVoiture: req.body.id_voiture,
         date: req.body.date_depart,
         heure: req.body.heure_depart,
+        distance: req.body.distance,
     };
 
 
@@ -63,6 +64,8 @@ exports.update = (req, res) => {
         idVoiture: req.body.id_voiture,
         date: req.body.date_depart,
         heure: req.body.heure_depart,
+        distance: req.body.distance,
+
     };
 
     db.query(querySelectId(id), (err, result, fields) => {
@@ -125,7 +128,7 @@ exports.VoyageBetweenDates = (req, res) => {
         else
             res.status(500).send({
                 message:
-                    err.message || `ERREUR: ${requeteVoyageBetweenDates}.`
+                    err.message || `ERREUR: ${queryVoyageBetweenDates}.`
             });
     })
 };
@@ -140,7 +143,21 @@ exports.VoyageToCityBetweenDates = (req, res) => {
         else
             res.status(500).send({
                 message:
-                    err.message || `ERREUR: ${requeteVoyageToCityBetweenDates}.`
+                    err.message || `ERREUR: ${queryVoyageToCityBetweenDates}.`
+            });
+    })
+};
+
+// liste les arret d'un voyage
+exports.findStop = (req, res) => {
+    const id = req.params.id;
+    db.query(queryArret(id), (err, result, fields) => {
+        if (!err)
+            res.send(result.rows);
+        else
+            res.status(500).send({
+                message:
+                    err.message || `ERREUR: ${queryArret}.`
             });
     })
 };

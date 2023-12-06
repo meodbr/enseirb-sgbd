@@ -24,12 +24,17 @@ function queryAvailableVehicles() {
     return('SELECT Voiture.* FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET WHERE Voyage.date_depart = $1 AND Arret.ville = $2');
 }
 
+function queryGetTrip(id){
+    return(`SELECT * from voyage where id_voiture=${id}`);
+}
+
 module.exports = {
     queryCreate,
     querySelectAll,
     querySelectId,
     queryUpdateById,
     queryDeleteById,
-    queryAvailableVehicles
+    queryAvailableVehicles,
+    queryGetTrip
 };
 

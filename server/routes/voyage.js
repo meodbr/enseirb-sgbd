@@ -20,10 +20,12 @@ module.exports = app => {
     router.delete("/:id", voyages.delete);
 
     // les trajets proposés dans un intervalle de jours donné, 
-    router.get("/:beginDate/:endDate", voyages.VoyageBetweenDates);
+    router.get("/prevus/:beginDate/:endDate", voyages.VoyageBetweenDates);
 
     // trajets pouvant desservir une ville donnée dans un intervalle de temps
-    router.get("/:city/:beginDate/:endDate", voyages.VoyageToCityBetweenDates);
+    router.get("/desservies/:city/:beginDate/:endDate", voyages.VoyageToCityBetweenDates);
+
+    router.get("/arret/:id", voyages.findStop); 
 
     app.use('/api/voyage', router);
 };
