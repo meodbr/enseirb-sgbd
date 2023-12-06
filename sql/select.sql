@@ -14,18 +14,19 @@ SELECT * FROM etudiant
 WHERE LOWER(nom) LIKE '%' || LOWER($1) || '%' OR LOWER(prenom) LIKE '%' || LOWER($1) || '%';
 
 -- liste des véhicules disponibles pour un jour donné pour une ville donnée
-SELECT Voiture.* 
-FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET 
-WHERE Voyage.date_depart = $1 AND Arret.ville = $2;
+SELECT DISTINCT id_voiture, id_proprietaire, type_voiture, couleur, nb_places_passager, etat 
+FROM(SELECT vo.*, id_voyage, count(est_valide) as nb_places_prises 
+    FROM Arret a NATURAL JOIN Voyage v NATURAL JOIN Voiture vo NATURAL LEFT JOIN (SELECT * FROM inscription WHERE est_valide = 'TRUE') as Inscription 
+    GROUP BY id_voyage, nb_places_passager, vo.id_voiture
+    ORDER BY id_voyage) as voi
+NATURAL JOIN Voyage voy NATURAL JOIN Arret a;
+WHERE nb_places_prises < nb_places_passager
+AND voy.date_depart = $1
+AND a.ville = $2;
 
--- Voyages où il reste des places
-SELECT count
-FROM Etudiants e NATURAL JOIN Inscription i NATURAL JOIN Arret a NATURAL JOIN Voyage v
-WHERE i.est_valide = 'TRUE'
-AND id_voyage = $1
 
--- les trajets proposés dans un intervalle de jours donné, 
-SELECT a.* FROM Voyage v NATURAL JOIN Arret a
+-- les arrets proposés dans un intervalle de jours donné, 
+SELECT DISTINCT a.* FROM Voyage v NATURAL JOIN Arret a
 WHERE date_depart >= $1
 AND date_depart <= $2;
 

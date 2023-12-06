@@ -33,22 +33,22 @@ INSERT INTO Etudiant (nom, prenom) VALUES
 
 -- Insertion des voitures
 INSERT INTO Voiture (id_proprietaire, type_voiture, couleur, nb_places_passager, etat) VALUES
-    (1, 'Sedan', 'Blue', 4, 'Good'),
-    (2, 'SUV', 'Black', 7, 'Excellent'),
-    (3, 'Hatchback', 'Red', 5, 'Average'),
-    (4, 'Convertible', 'White', 2, 'Excellent'),
-    (5, 'Pickup', 'Green', 3, 'Good'),
-    (6, 'Minivan', 'Silver', 6, 'Excellent'),
-    (7, 'Truck', 'Gray', 3, 'Average'),
-    (8, 'Coupe', 'Yellow', 2, 'Good'),
-    (9, 'Electric', 'Blue', 4, 'Excellent'),
-    (10, 'Roadster', 'Red', 2, 'Excellent'),
-    (2, 'Coupe', 'Brown', 2, 'Average'),
-    (6, 'Hatchback', 'Purple', 5, 'Good'),
-    (7, 'Electric', 'Black', 4, 'Average'),
-    (7, 'Minivan', 'Golden', 6, 'Excellent'),
-    (14, 'Sedan', 'Black', 4, 'Average'),
-    (17, 'Pickup', 'White', 3, 'Excellent');
+    (1, 'Sedan', 'Blue', 3, 'Good'),
+    (2, 'SUV', 'Black', 6, 'Excellent'),
+    (3, 'Hatchback', 'Red', 4, 'Average'),
+    (4, 'Convertible', 'White', 1, 'Excellent'),
+    (5, 'Pickup', 'Green', 2, 'Good'),
+    (6, 'Minivan', 'Silver', 5, 'Excellent'),
+    (7, 'Truck', 'Gray', 2, 'Average'),
+    (8, 'Coupe', 'Yellow', 1, 'Good'),
+    (9, 'Electric', 'Blue', 3, 'Excellent'),
+    (10, 'Roadster', 'Red', 1, 'Excellent'),
+    (2, 'Coupe', 'Brown', 1, 'Average'),
+    (6, 'Hatchback', 'Purple', 4, 'Good'),
+    (7, 'Electric', 'Black', 3, 'Average'),
+    (7, 'Minivan', 'Golden', 5, 'Excellent'),
+    (14, 'Sedan', 'Black', 3, 'Average'),
+    (17, 'Pickup', 'White', 2, 'Excellent');
 
 -- Insertion des voyages
 INSERT INTO Voyage (id_voiture, distance, date_depart, heure_depart) VALUES
@@ -62,7 +62,15 @@ INSERT INTO Voyage (id_voiture, distance, date_depart, heure_depart) VALUES
     (6, 130, '2024-01-01', '11:34:00'),
     (7, 15, '2024-04-02', '16:30:00'),
     (8, 120, '2023-09-02', '11:13:00'),
-    (8, 400, '2024-01-12', '15:30:00');
+    (8, 400, '2024-01-12', '15:30:00'),
+    (11, 180, '2023-12-15', '09:30:00'),
+    (12, 250, '2023-11-20', '14:15:00'),
+    (13, 80, '2024-03-05', '08:45:00'),
+    (14, 300, '2023-10-10', '12:00:00'),
+    (5, 150, '2023-12-05', '11:00:00'),
+    (6, 220, '2024-02-20', '13:45:00'),
+    (7, 180, '2024-03-15', '10:15:00'),
+    (8, 280, '2023-11-05', '15:30:00');
 
 -- Insertion des arrêts
 INSERT INTO Arret (id_voyage, ville, duree_estimee, prix_par_passager) VALUES
@@ -80,7 +88,29 @@ INSERT INTO Arret (id_voyage, ville, duree_estimee, prix_par_passager) VALUES
     (9, 'Avignon', '07:00:00', 40.00),
     (10, 'Arcachon', '01:20:00', 7.00),
     (10, 'Lacanau', '01:40:00', 9.00),
-    (5, 'Mérignac', '01:10:00', 6.00);
+    (5, 'Mérignac', '01:10:00', 6.00),
+    (11, 'Bordeaux', '00:45:00', 4.00),
+    (11, 'Libourne', '01:15:00', 2.00),
+    (11, 'Angoulême', '02:00:00', 12.00),
+    (12, 'Pau', '01:30:00', 8.00),
+    (12, 'Tarbes', '01:00:00', 6.00),
+    (13, 'Bayonne', '00:45:00', 5.00),
+    (13, 'Biarritz', '00:30:00', 3.00),
+    (13, 'Saint-Jean-de-Luz', '01:00:00', 7.00),
+    (14, 'La Rochelle', '00:45:00', 6.00),
+    (14, 'Nantes', '02:30:00', 15.00),
+    (14, 'Rennes', '01:15:00', 9.00),
+    (15, 'Montpellier', '00:30:00', 3.50),
+    (15, 'Nîmes', '01:00:00', 5.00),
+    (15, 'Avignon', '01:15:00', 6.50),
+    (16, 'Tours', '01:45:00', 10.00),
+    (16, 'Orléans', '01:30:00', 8.00),
+    (17, 'Strasbourg', '02:15:00', 12.00),
+    (17, 'Colmar', '01:00:00', 7.00),
+    (17, 'Mulhouse', '01:30:00', 9.00),
+    (18, 'Brest', '02:00:00', 15.00),
+    (18, 'Quimper', '01:30:00', 11.00),
+    (18, 'Lorient', '01:15:00', 8.00);
 
 -- Insertion des inscriptions
 INSERT INTO Inscription (id_etudiant, id_arret, est_valide) VALUES
@@ -90,11 +120,11 @@ INSERT INTO Inscription (id_etudiant, id_arret, est_valide) VALUES
     (2,1, TRUE),
     (5,1, TRUE),
     (8,2, TRUE),
-    (9,2, FALSE), -- En considérant le conducteur, les 4 places sont déjà occupées    
+    (9,2, FALSE), -- 3 places sont déjà occupées    
     (1, 2, FALSE),
     (1, 5, FALSE),
 
-    -- voy 2 , prop 2 exclu, voiture 2 : 7 places max, arrets = 3
+    -- voy 2 , voiture 2 : 5 places max, arrets = 3
     (2, 3, FALSE),
     (1, 3, TRUE),
     (4, 3, TRUE),
@@ -102,63 +132,57 @@ INSERT INTO Inscription (id_etudiant, id_arret, est_valide) VALUES
     (7, 3, TRUE),
     (10, 3, TRUE),
     (11, 3, TRUE),
-    (12, 3, FALSE), -- Déjà 7 personnes inscrites
+    (12, 3, FALSE), -- Déjà 6 personnes inscrites
 
 
-    -- voy 3 , prop 3 exclu, voiture 3 : 5 places max, arrets = 4 et 6
+    -- voy 3 , voiture 3 : 4 places max, arrets = 4 et 6
     (3, 4, FALSE),
     (5, 4, TRUE),
     (8, 4, TRUE),
     (9, 6, TRUE),
     (13, 6, TRUE),
-    (10, 6, FALSE), -- Déjà 5 personnes inscrites
+    (10, 6, FALSE), -- Déjà 4 personnes inscrites
     (3, 6, FALSE),
 
-    -- voy 4, voiture 4 : 2 places max, prop 4 exclu, arrets = 7
+    -- voy 4, voiture 4 : 1 places max, arrets = 7
     (4, 7, FALSE),
     (16, 7, TRUE),
-    (6, 7, FALSE), -- Déjà 2 personnes inscrites
+    (6, 7, FALSE), -- Déjà 1 personnes inscrites
 
-    -- voy 5, voiture 5 : 3 places max, prop 5 exclu, arrets = 8,15
+    -- voy 5, voiture 5 : 2 places max, arrets = 8,15
     (5, 8, FALSE),
     (7, 8, TRUE),
     (9, 15, TRUE),
-    (11, 15, FALSE), -- Déjà 3 personnes inscrites
+    (11, 15, FALSE), -- Déjà 2 personnes inscrites
     (5, 15, FALSE),
 
-    -- voy 6 , voiture 1 : 4 places max, prop 1 exclu, arrets = 9
+    -- voy 6 , voiture 1 : 3 places max, arrets = 9
     (1,9,FALSE),
     (21,9,TRUE),
     (22,9,TRUE),
     (23,9,TRUE),
-    (26,9,FALSE), -- Déjà 4 personnes inscrites
+    (26,9,FALSE), -- Déjà 3 personnes inscrites
 
-    -- voy 7, voiture 1 : 4 places max, prop 1 exclu, arrets = 10
+    -- voy 7, voiture 1 : 3 places max, arrets = 10
     (1,10,FALSE),
     (11,10,TRUE),
     (12,10,TRUE),
     (13,10,TRUE),
-    (16,10,FALSE), -- Déjà 4 personnes inscrites
+    (16,10,FALSE), -- Déjà 3 personnes inscrites
 
-    -- voy 8, voiture 6 : 6 places max, prop 6 exclu, arrets = 11
+    -- voy 8, voiture 6 : 5 places max, arrets = 11
     (6,11,FALSE),
     (7,11,TRUE),
     (8,11,TRUE),
     (9,11,TRUE),
-    (10,11,TRUE),
-    (11,11,TRUE),
-    (12,11,FALSE), -- Déjà 6 personnes inscrites
 
-    -- voy 9, voiture 7 : 3 places max, prop 7 exclu, arrets = 12
+    -- voy 9, voiture 7 : 3 places max, arrets = 12
     (7,12,FALSE),
-    (27,12,TRUE),
-    (26,12,TRUE),
-    (11,12,FALSE), -- Déjà 3 personnes inscrites
 
-    -- voy 10, voiture 8 : 2 places max, prop 8 exclu, arrets = 13,14
+    -- voy 10, voiture 8 : 1 places max, arrets = 13,14
     (8,13,FALSE),
     (1,14,TRUE),
-    (11,13,FALSE); -- Déjà 2 personnes inscrites
+    (11,13,FALSE); -- Déjà 1 personnes inscrites
 
 
 -- Insertion des évaluations
@@ -204,12 +228,8 @@ INSERT INTO Evaluation (id_emetteur, id_receveur, id_voyage, note, commentaire) 
     (7, 6, 8, 5, 'Fantastic journey'),
     (8, 6, 8, 4, 'Good experience'),
     (9, 6, 8, 4, 'Nice company'),
-    (10, 6, 8, 3, 'Average trip'),
-    (11, 6, 8, 5, 'Perfect journey'),
 
     -- Voyage 9 evaluations
-    (27, 7, 9, 5, 'Enjoyed the trip'),
-    (26, 7, 9, 4, 'Great time together'),
 
     -- Voyage 10 evaluations
     (1, 8, 10, 5, 'Excellent service');

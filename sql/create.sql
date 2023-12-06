@@ -144,8 +144,8 @@ BEGIN
     IF (select vo.nb_places_passager - count(i.id_etudiant) as nb_passager
 from inscription i natural join arret a natural join voyage v natural join voiture vo
 where i.est_valide = 'TRUE' and v.id_voyage = 1
-group by vo.nb_places_passager) < 1  THEN
-        RAISE EXCEPTION 'Le voyage est plein';
+group by vo.nb_places_passager) < 1 THEN
+        -- RAISE EXCEPTION 'Le voyage est plein';
     END IF;
     RETURN NEW;
 END;
