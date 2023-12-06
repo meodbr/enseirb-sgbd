@@ -2,7 +2,7 @@ const db = require("../db");
 
 function queryStatConducteur(){
     return (`SELECT e.nom, e.prenom, AVG(ev.note) as avg
-    FROM etudiant e JOIN evaluation ev ON e.id_etudiant=ev.id_receveur JOIN voyage vo ON vo.id_voyage = ev.id_voyage JOIN voiture v ON vo.id_voiture = v.id_voiture 
+    FROM etudiant e JOIN evaluation ev ON e.id_etudiant=ev.id_receveur natural JOIN voyage vo natural JOIN voiture v 
     where ev.id_receveur = v.id_proprietaire
     group by (e.id_etudiant)
     order by (avg) DESC`);
@@ -10,7 +10,7 @@ function queryStatConducteur(){
 
 function queryStatVille() {
     return(`SELECT a.ville, count(v.id_voyage) as nombre_arret
-    FROM voyage v join  arret a on a.id_voyage = v.id_voyage
+    FROM voyage v natural join  arret a
     group by (a.ville)
     order by (nombre_arret) DESC LIMIT 5`);
 }
