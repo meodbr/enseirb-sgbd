@@ -1,5 +1,5 @@
 const db = require('../db');
-const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById, queryFindByName
+const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById, queryFindByName, queryGetRate
 } = require("../queries/etudiants");
 
 // Crée un étudiant
@@ -125,7 +125,21 @@ exports.findByName = (req, res) => {
         else
             res.status(500).send({
                 message:
-                    err.message || `ERREUR: ${requeteFindByName}.`
+                    err.message || `ERREUR: ${queryFindByName}.`
+            });
+    })
+};
+
+// note d'un étudiant par id
+exports.FindRateById = (req, res) => {
+    const id = req.params.id;
+    db.query(queryGetRate(id), (err, result, fields) => {
+        if (!err)
+            res.send(result.rows);
+        else
+            res.status(500).send({
+                message:
+                    err.message || `ERREUR: ${queryGetRate}.`
             });
     })
 };

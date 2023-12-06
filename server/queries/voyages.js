@@ -1,5 +1,5 @@
 function queryCreate(voyage){
-    return (`INSERT INTO voyage (id_voiture, date_depart, heure_depart) VALUES ('${voyage.idVoiture}', '${voyage.date}', '${voyage.heure}')`);
+    return (`INSERT INTO voyage (id_voiture, date_depart, heure_depart, distance) VALUES ('${voyage.idVoiture}', '${voyage.date}', '${voyage.heure}', '${voyage.distance}')`);
 }
 
 function querySelectAll() {
@@ -11,7 +11,7 @@ function querySelectId(id){
 }
 
 function queryUpdateById(id, voyage){
-    return(`UPDATE voyage SET id_voiture='${voyage.idVoiture}', date_depart='${voyage.date}', heure_depart='${voyage.heure}' WHERE id_voyage=${id}`);
+    return(`UPDATE voyage SET id_voiture='${voyage.idVoiture}', date_depart='${voyage.date}', heure_depart='${voyage.heure}', distance='${voyage.distance}' WHERE id_voyage=${id}`);
 }
 
 function queryDeleteById(id){
@@ -28,6 +28,10 @@ function queryVoyageToCityBetweenDates() {
     return('SELECT Voyage.* FROM Voyage NATURAL JOIN Arret WHERE ville = $1 AND date_depart >= $2 AND date_depart <= $3');
 }
 
+function queryArret(id){
+    return(`select * from arret where id_voyage=${id};`)
+}
+
 module.exports = {
     queryCreate,
     querySelectAll,
@@ -35,5 +39,6 @@ module.exports = {
     queryUpdateById,
     queryDeleteById,
     queryVoyageBetweenDates,
-    queryVoyageToCityBetweenDates
+    queryVoyageToCityBetweenDates,
+    queryArret
 };

@@ -1,5 +1,5 @@
 const db = require('../db');
-const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById, queryAvailableVehicles
+const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteById, queryAvailableVehicles, queryGetTrip
 } = require("../queries/voitures");
 
 // Crée une voiture
@@ -131,6 +131,20 @@ exports.availableVehicules = (req, res) => {
             res.status(500).send({
                 message:
                     err.message || `ERREUR: ${requeteAvailableVehicules}.`
+            });
+    })
+};
+
+// liste des voyages disponibles pour un véhicule
+exports.availableTrips = (req, res) => {
+    const id = req.params.id;
+    db.query(queryGetTrip(id), (err, result, fields) => {
+        if (!err)
+            res.send(result.rows);
+        else
+            res.status(500).send({
+                message:
+                    err.message || `ERREUR: ${queryGetTrip}.`
             });
     })
 };

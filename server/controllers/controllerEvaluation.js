@@ -6,7 +6,7 @@ const {queryCreate, querySelectAll, querySelectId, queryUpdateById, queryDeleteB
 exports.create = (req, res) => {
 
     const evaluation = {
-        idEmetteur: req.params.idEmetteur,
+        idEmetteur: req.params.id_emetteur,
         idReceveur: req.body.id_receveur,
         idVoyage: req.body.id_voyage,
         note: req.body.note,

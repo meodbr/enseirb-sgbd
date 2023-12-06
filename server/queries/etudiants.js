@@ -25,11 +25,22 @@ function queryFindByName() {
     return('SELECT * FROM etudiant WHERE LOWER(nom) LIKE \'%\' || LOWER($1) || \'%\' OR LOWER(prenom) LIKE \'%\' || LOWER($1) || \'%\'');
 }
 
+function queryGetRate(id){
+    return(`SELECT e.nom, e.prenom, AVG(ev.note) \
+    AS avg FROM etudiant e \
+    JOIN evaluation ev ON e.id_etudiant = ev.id_receveur \
+    JOIN voyage vo ON vo.id_voyage = ev.id_voyage \
+    JOIN voiture v ON vo.id_voiture = v.id_voiture \
+    WHERE ev.id_receveur = v.id_proprietaire AND ev.id_receveur = ${id} \
+    GROUP BY e.id_etudiant`)
+}
+
 module.exports = {
     queryCreate,
     querySelectAll,
     querySelectId,
     queryUpdateById,
     queryDeleteById,
-    queryFindByName
+    queryFindByName,
+    queryGetRate
 };

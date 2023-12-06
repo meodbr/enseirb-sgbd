@@ -18,6 +18,12 @@ SELECT Voiture.*
 FROM Voiture NATURAL JOIN Voyage NATURAL JOIN ARRET 
 WHERE Voyage.date_depart = $1 AND Arret.ville = $2;
 
+-- Voyages où il reste des places
+SELECT count
+FROM Etudiants e NATURAL JOIN Inscription i NATURAL JOIN Arret a NATURAL JOIN Voyage v
+WHERE i.est_valide = 'TRUE'
+AND id_voyage = $1
+
 -- les trajets proposés dans un intervalle de jours donné, 
 SELECT a.* FROM Voyage v NATURAL JOIN Arret a
 WHERE date_depart >= $1
@@ -30,7 +36,7 @@ WHERE ville = $1
 AND date_depart >= $2
 AND date_depart <= $3;
 
---STATISTIQUES
+-- STATISTIQUES
 
 --moyenne des passagers sur l’ensemble des trajets effectués
 SELECT nb_passager/nb_voyage as moyenne_passager 
