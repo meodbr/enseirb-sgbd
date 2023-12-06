@@ -167,7 +167,7 @@ INSERT INTO Evaluation (id_emetteur, id_receveur, id_voyage, note, commentaire) 
     (2, 1, 1, 4, 'Enjoyed the trip'),
     (5, 1, 1, 5, 'Excellent company'),
     (8, 1, 1, 3, 'Average experience'),
-    (9, 1, 1, 5, 'Very comfortable journey'),
+    (1, 2, 1, 5, 'Very comfortable journey'),
 
     -- Voyage 2 evaluations
     (1, 2, 2, 5, 'Awesome trip!'),

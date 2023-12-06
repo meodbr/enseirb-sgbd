@@ -71,7 +71,8 @@ ALTER TABLE Inscription
 ALTER TABLE Evaluation
      ADD CONSTRAINT fk1_Evaluation FOREIGN KEY (id_emetteur) REFERENCES Etudiant(id_etudiant),
      ADD CONSTRAINT fk2_Evaluation FOREIGN KEY (id_receveur) REFERENCES Etudiant(id_etudiant),
-     ADD CONSTRAINT fk3_Evaluation FOREIGN KEY (id_voyage) REFERENCES Voyage(id_voyage);
+     ADD CONSTRAINT fk3_Evaluation FOREIGN KEY (id_voyage) REFERENCES Voyage(id_voyage),
+     ADD CONSTRAINT check_receveur_diff_emetteur CHECK (id_receveur <> id_emetteur);
 
 -- deletion handling
 
@@ -112,7 +113,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-/* CREATE OR REPLACE FUNCTION check_id_receveur_equals_voyageur()
+CREATE OR REPLACE FUNCTION check_id_receveur_equals_voyageur()
 RETURNS TRIGGER AS $$
 BEGIN
     IF (NEW.id_receveur != (SELECT distinct v.id_proprietaire from evaluation e natural join voyage natural join voiture v where NEW.id_voyage = voyage.id_voyage))  AND 
@@ -135,20 +136,42 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
- */
 
-/* CREATE OR REPLACE FUNCTION check_place_disponible()
+
+CREATE OR REPLACE FUNCTION check_place_disponible()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF (NEW.id_emetteur != (SELECT distinct v.id_proprietaire from evaluation e natural join voyage natural join voiture v where NEW.id_voyage = voyage.id_voyage))  AND 
-    (NEW.id_emetteur NOT IN (SELECT distinct i.id_etudiant from inscription i natural join arret a natural join evaluation e natural join voyage v where i.est_valide = True and NEW.id_voyage = v.id_voyage))   THEN
+    IF (select vo.nb_places_passager - count(i.id_etudiant) as nb_passager
+from inscription i natural join arret a natural join voyage v natural join voiture vo
+where i.est_valide = 'TRUE' and v.id_voyage = 1
+group by vo.nb_places_passager) < 1  THEN
         RAISE EXCEPTION 'Le voyage est plein';
     END IF;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql; */
+$$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION check_inscrit_pas_conducteur()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.id_etudiant = (select distinct vo.id_proprietaire
+from inscription i natural join arret a natural join voyage v natural join voiture vo
+where NEW.est_valide = 'TRUE' and a.id_arret=NEW.id_arret) THEN
+        RAISE EXCEPTION 'Linscrit est le conducteur';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION check_inscrit_pas_deja_inscrit()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.id_etudiant IN (SELECT distinct i.id_etudiant from inscription i natural join arret a natural join voyage v where NEW.est_valide = 'True' and a.id_arret=NEW.id_arret) THEN
+        RAISE EXCEPTION 'Linscrit est deja inscrit';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER update_voyage_trigger
 BEFORE DELETE ON Voiture
@@ -165,7 +188,7 @@ BEFORE DELETE ON Voyage
 FOR EACH ROW
 EXECUTE FUNCTION update_evaluations_on_voyage_delete();
 
-/* CREATE TRIGGER trig_check_id_receveur_equals_voyageur
+CREATE TRIGGER trig_check_id_receveur_equals_voyageur
 BEFORE INSERT OR UPDATE ON evaluation
 FOR EACH ROW
 EXECUTE FUNCTION check_id_receveur_equals_voyageur();
@@ -173,4 +196,19 @@ EXECUTE FUNCTION check_id_receveur_equals_voyageur();
 CREATE TRIGGER trig_check_id_emetteur_equals_voyageur
 BEFORE INSERT OR UPDATE ON evaluation
 FOR EACH ROW
-EXECUTE FUNCTION check_id_emetteur_equals_voyageur(); */
+EXECUTE FUNCTION check_id_emetteur_equals_voyageur();
+
+CREATE TRIGGER trig_check_place_disponible
+BEFORE INSERT OR UPDATE ON inscription
+FOR EACH ROW
+EXECUTE FUNCTION check_place_disponible();
+
+CREATE TRIGGER trig_check_inscrit_pas_conducteur
+BEFORE INSERT OR UPDATE ON inscription
+FOR EACH ROW
+EXECUTE FUNCTION check_inscrit_pas_conducteur();
+
+CREATE TRIGGER trig_check_inscrit_pas_deja_inscrit
+BEFORE INSERT OR UPDATE ON inscription
+FOR EACH ROW
+EXECUTE FUNCTION check_inscrit_pas_deja_inscrit();
