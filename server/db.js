@@ -3,9 +3,9 @@ const { Pool } = require('pg');
 //MySQL details
 const pool = new Pool({
     user: 'theofacen',
-    password: 'zizi',
+    password: 'dest',
     host: 'localhost',
-    database: 'sgbd',
+    database: 'sgbds7e4',
     port: 5432,
 });
 

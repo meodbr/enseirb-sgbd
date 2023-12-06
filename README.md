@@ -15,6 +15,15 @@ postgres=# \c projets7e4
 projets7e4=# \i sql/create.sql
 projets7e4=# \i sql/insert.sql
 
+Au cas ou, voici les informations qu'utilise le server back-end pour se connecter à la base :
+{
+    user: 'theofacen',
+    password: 'dest',
+    host: 'localhost',
+    database: 'sgbds7e4',
+    port: 5432
+}
+
 - Lancer le server back-end :
 $ cd server
 $ npm install
